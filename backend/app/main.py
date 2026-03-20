@@ -8,7 +8,6 @@ from app.routes import employee_routes, attendance_routes
 
 app = FastAPI()
 
-# ✅ Add this block
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173"
@@ -22,9 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-async def on_startup():
-    await init_db([Employee, Attendance])
+# @app.on_event("startup")
+# async def on_startup():
+#     await init_db([Employee, Attendance])
 
 app.include_router(employee_routes.router, prefix="/api/employees")
 app.include_router(attendance_routes.router, prefix="/api/attendance")
