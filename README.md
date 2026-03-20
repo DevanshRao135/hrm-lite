@@ -74,6 +74,7 @@ Notes:
 - `VITE_APP_NAME` controls app branding in the UI
 - `VITE_ENABLE_MOCKS` is available as a future mock/dev-only toggle
 - `VITE_NODE_ENV` is not needed because Vite already exposes mode information through `import.meta.env`
+- use an `https://...` API URL in production to avoid mixed-content errors on Netlify or other HTTPS hosts
 
 ## Steps To Run The Project Locally
 
@@ -120,6 +121,7 @@ Notes:
 - `VITE_APP_NAME` is used for frontend branding, such as the navbar title
 - `VITE_ENABLE_MOCKS` is available as a future toggle for mock/dev-only API behavior
 - `VITE_NODE_ENV` is not required because Vite already provides mode information through `import.meta.env`
+- for production deployments, set `VITE_API_BASE_URL` to your deployed backend URL, for example `https://your-backend-domain/api`
 
 ### 1. Start the Backend
 
@@ -210,6 +212,7 @@ http://127.0.0.1:5173
 - The frontend API base URL is controlled through `VITE_API_BASE_URL`.
 - The frontend app title is controlled through `VITE_APP_NAME`.
 - The frontend mock toggle is available through `VITE_ENABLE_MOCKS`.
+- Frontend collection requests use trailing-slash paths such as `/employees/` and `/attendance/` to match the FastAPI route definitions.
 - CORS is enabled for:
   - `http://localhost:5173`
   - `http://127.0.0.1:5173`
@@ -227,6 +230,7 @@ http://127.0.0.1:5173
 - Reporting is limited to table summaries and employee-specific attendance history.
 - The frontend assumes the backend is running locally with the default API base URL.
 - Railway internal/private MongoDB hostnames do not work directly from a local machine; a public connection string is required for local access.
+- CORS currently allows the local Vite origins; production frontend origins would need to be added in backend configuration.
 
 ## Future Improvement Ideas
 

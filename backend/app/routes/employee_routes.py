@@ -11,7 +11,6 @@ async def create(emp: EmployeeCreate):
     except ValueError as e:
         raise HTTPException(status_code=409, detail=str(e))
 
-@router.get("")
 @router.get("/")
 async def list_all(range_type: str = Query(default="all", alias="range")):
     return await get_employees(range_type=range_type)
