@@ -11,6 +11,13 @@ from app.routes import employee_routes, attendance_routes
 
 app = FastAPI()
 
+# 1. Proxy (for Railway)
+app.add_middleware(ProxyHeadersMiddleware)
+
+# 2. HTTPS redirect (optional but fine)
+app.add_middleware(HTTPSRedirectMiddleware)
+
+# 3. CORS (must be separate)
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -19,8 +26,6 @@ origins = [
 ]
 
 app.add_middleware(
-    HTTPSRedirectMiddleware,
-    ProxyHeadersMiddleware,
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
