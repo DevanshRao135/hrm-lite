@@ -16,6 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const appName = import.meta.env.VITE_APP_NAME || "HRMS Lite";
 
   const navItems = [
     {
@@ -85,7 +86,7 @@ export default function Navbar() {
                 fontWeight: 700
               }}
             >
-              HRMS Lite
+              {appName}
             </Typography>
             <Typography
               sx={{

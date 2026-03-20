@@ -47,6 +47,34 @@ hrms-lite/
 `-- README.md
 ```
 
+## Environment Variables
+
+### Backend
+
+Create `backend/.env` with:
+
+```env
+MONGO_URI=mongodb://localhost:27017
+```
+
+For Railway MongoDB, use Railway's public MongoDB connection string instead of a `railway.internal` hostname.
+
+### Frontend
+
+Create `frontend/.env` with:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/api
+VITE_APP_NAME=HRMS Lite
+VITE_ENABLE_MOCKS=false
+```
+
+Notes:
+- `VITE_API_BASE_URL` controls the backend API URL used by the frontend
+- `VITE_APP_NAME` controls app branding in the UI
+- `VITE_ENABLE_MOCKS` is available as a future mock/dev-only toggle
+- `VITE_NODE_ENV` is not needed because Vite already exposes mode information through `import.meta.env`
+
 ## Steps To Run The Project Locally
 
 ### Prerequisites
@@ -75,6 +103,23 @@ MONGO_URI=mongodb://mongo:YOUR_PASSWORD@YOUR_PUBLIC_RAILWAY_HOST:YOUR_PORT
 Note:
 - use Railway's public connection string when running locally
 - do not use `railway.internal` hostnames from your local machine
+
+### Frontend Environment Setup
+
+The frontend reads the API base URL from `frontend/.env`.
+
+Example configuration:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/api
+VITE_APP_NAME=HRMS Lite
+VITE_ENABLE_MOCKS=false
+```
+
+Notes:
+- `VITE_APP_NAME` is used for frontend branding, such as the navbar title
+- `VITE_ENABLE_MOCKS` is available as a future toggle for mock/dev-only API behavior
+- `VITE_NODE_ENV` is not required because Vite already provides mode information through `import.meta.env`
 
 ### 1. Start the Backend
 
@@ -131,6 +176,14 @@ Install frontend dependencies:
 npm install
 ```
 
+Create `frontend/.env` if it does not already exist:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/api
+VITE_APP_NAME=HRMS Lite
+VITE_ENABLE_MOCKS=false
+```
+
 Start the Vite development server:
 
 ```powershell
@@ -154,6 +207,9 @@ http://127.0.0.1:5173
 ## API / Runtime Notes
 
 - The frontend is currently configured to call the backend at `http://127.0.0.1:8000/api`.
+- The frontend API base URL is controlled through `VITE_API_BASE_URL`.
+- The frontend app title is controlled through `VITE_APP_NAME`.
+- The frontend mock toggle is available through `VITE_ENABLE_MOCKS`.
 - CORS is enabled for:
   - `http://localhost:5173`
   - `http://127.0.0.1:5173`
