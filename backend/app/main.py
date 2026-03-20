@@ -21,9 +21,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# @app.on_event("startup")
-# async def on_startup():
-#     await init_db([Employee, Attendance])
+@app.on_event("startup")
+async def on_startup():
+    try:
+        await init_db([Employee, Attendance])
+        print("DB connected successfully")
+    except Exception as e:
+        print("DB connection failed:", e)
 
 app.include_router(employee_routes.router, prefix="/api/employees")
 app.include_router(attendance_routes.router, prefix="/api/attendance")
