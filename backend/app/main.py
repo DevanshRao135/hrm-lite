@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
+from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+
 
 from app.core.database import init_db
 from app.models.employee import Employee
@@ -16,6 +19,8 @@ origins = [
 ]
 
 app.add_middleware(
+    HTTPSRedirectMiddleware,
+    ProxyHeadersMiddleware,
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
