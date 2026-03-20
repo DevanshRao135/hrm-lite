@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-HRMS Lite is a lightweight employee and attendance management application with a React frontend and a FastAPI backend.
+HRMS Lite is a lightweight employee and attendance management application built with a React frontend and a FastAPI backend.
 
 Current features include:
 - employee creation, listing, and soft deletion
@@ -11,7 +11,7 @@ Current features include:
 - present-day summaries in the employee table
 - attendance filtering for `All Time`, `This Week`, and `This Month`
 
-The frontend provides a small HR dashboard experience, while the backend exposes REST APIs backed by MongoDB.
+The frontend provides a compact HR dashboard experience, while the backend exposes REST APIs backed by MongoDB.
 
 ## Tech Stack Used
 
@@ -30,19 +30,21 @@ The frontend provides a small HR dashboard experience, while the backend exposes
 - Motor
 - MongoDB
 - Pydantic
+- python-dotenv
 - Uvicorn
 
 ## Project Structure
 
 ```text
 hrms-lite/
-├── backend/
-│   ├── app/
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   └── package.json
-└── README.md
+|-- backend/
+|   |-- app/
+|   |-- .env
+|   `-- requirements.txt
+|-- frontend/
+|   |-- src/
+|   `-- package.json
+`-- README.md
 ```
 
 ## Steps To Run The Project Locally
@@ -52,13 +54,27 @@ hrms-lite/
 Make sure you have the following installed:
 - Python 3.10+ recommended
 - Node.js 18+ recommended
-- MongoDB running locally on the default port
+- MongoDB running locally on the default port, or a hosted MongoDB instance such as Railway MongoDB
 
-By default, the backend uses:
+### Backend Environment Setup
+
+The backend reads `MONGO_URI` from `backend/.env`.
+
+Example local MongoDB configuration:
 
 ```env
 MONGO_URI=mongodb://localhost:27017
 ```
+
+Example Railway MongoDB configuration:
+
+```env
+MONGO_URI=mongodb://mongo:YOUR_PASSWORD@YOUR_PUBLIC_RAILWAY_HOST:YOUR_PORT
+```
+
+Note:
+- use Railway's public connection string when running locally
+- do not use `railway.internal` hostnames from your local machine
 
 ### 1. Start the Backend
 
@@ -80,6 +96,14 @@ Install backend dependencies:
 ```powershell
 pip install -r requirements.txt
 ```
+
+Create `backend/.env` if it does not already exist:
+
+```env
+MONGO_URI=mongodb://localhost:27017
+```
+
+Or, if you want to use Railway MongoDB locally, place your public Railway MongoDB URI in `backend/.env`.
 
 Run the FastAPI server:
 
@@ -134,6 +158,7 @@ http://127.0.0.1:5173
   - `http://localhost:5173`
   - `http://127.0.0.1:5173`
 - MongoDB data is stored in the `hrms_db` database by default.
+- The backend should be started from the `backend` directory so `backend/.env` is loaded correctly.
 
 ## Assumptions Or Limitations
 
@@ -145,6 +170,7 @@ http://127.0.0.1:5173
 - There are no automated tests included yet.
 - Reporting is limited to table summaries and employee-specific attendance history.
 - The frontend assumes the backend is running locally with the default API base URL.
+- Railway internal/private MongoDB hostnames do not work directly from a local machine; a public connection string is required for local access.
 
 ## Future Improvement Ideas
 
