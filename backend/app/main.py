@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
+# from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 
@@ -9,15 +9,12 @@ from app.models.employee import Employee
 from app.models.attendance import Attendance
 from app.routes import employee_routes, attendance_routes
 
+
 app = FastAPI()
 
-# 1. Proxy (for Railway)
-app.add_middleware(ProxyHeadersMiddleware)
-
-# 2. HTTPS redirect (optional but fine)
+# Optional: redirect HTTP → HTTPS
 app.add_middleware(HTTPSRedirectMiddleware)
 
-# 3. CORS (must be separate)
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
