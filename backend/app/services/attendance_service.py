@@ -31,3 +31,7 @@ async def update_attendance(employee_id, date, data):
 
 async def get_attendance(employee_id):
     return await Attendance.find({"employee_id": employee_id}).to_list()
+
+
+async def get_total_present_days(employee_id):
+    return await Attendance.find({"employee_id": employee_id, "status": "present"}).count()

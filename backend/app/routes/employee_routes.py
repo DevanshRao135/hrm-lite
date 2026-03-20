@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from app.schemas.employee import EmployeeCreate
 from app.services.employee_service import *
 
@@ -13,8 +13,8 @@ async def create(emp: EmployeeCreate):
 
 
 @router.get("/")
-async def list_all():
-    return await get_employees()
+async def list_all(range_type: str = Query(default="all", alias="range")):
+    return await get_employees(range_type=range_type)
 
 
 @router.delete("/{employee_id}")
