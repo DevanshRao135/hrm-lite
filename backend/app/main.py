@@ -10,7 +10,8 @@ from app.models.attendance import Attendance
 from app.routes import employee_routes, attendance_routes
 
 
-app = FastAPI()
+# app = FastAPI()
+app = FastAPI(redirect_slashes=False)
 
 # Optional: redirect HTTP → HTTPS
 app.add_middleware(HTTPSRedirectMiddleware)
