@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
-from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+# from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 
 from app.core.database import init_db
@@ -14,7 +14,7 @@ from app.routes import employee_routes, attendance_routes
 app = FastAPI(redirect_slashes=False)
 
 # Optional: redirect HTTP → HTTPS
-app.add_middleware(HTTPSRedirectMiddleware)
+# app.add_middleware(HTTPSRedirectMiddleware)
 
 origins = [
     "http://localhost:5173",
